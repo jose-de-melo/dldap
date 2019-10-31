@@ -3,9 +3,9 @@ Gerenciamento de usuários, grupos e máquinas cadastrados em uma base LDAP.
 
 # Instalando o Dialog
 
-´´´shell
+```shell
 $ yum update
 $ yum install dialog
-´´´
+```
 
 

@@ -9,5 +9,15 @@ resposta=$(
              --menu 'Escolha um usuário para consultar:' \
             0 0 0                   \
 	    $(./src/user/make-list-users.sh) \
-            0 'Sair'                )
+            'Voltar' ''         )
 
+
+[ $? -ne 0 ] && src/dldap-users.sh
+
+if [ $? -eq 1 ]; then
+	if [ $resposta = 'Voltar' ];then
+		./src/dldap-users.sh
+	else
+		src/user/show-user.sh $resposta
+	fi
+fi

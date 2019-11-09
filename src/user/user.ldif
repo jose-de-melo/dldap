@@ -1,0 +1,24 @@
+dn: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+uid: <uid>
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: inetOrgPerson
+cn: <uid>
+sn: <>
+uidNumber: <id>
+gidNumber: <id>
+homeDirectory: /home/ricardo
+loginShell: /bin/bash
+gecos: <gecos>
+userPassword: <password>
+shadowLastChange: 18200
+shadowMax: 99999
+shadowWarning: 7
+
+dn: cn=<cn>,ou=Grupos,dc=jose,dc=labredes,dc=info
+cn: <cn>
+objectClass: posixGroup
+objectClass: groupOfUniqueNames
+gidNumber: <id>
+uniqueMember: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+

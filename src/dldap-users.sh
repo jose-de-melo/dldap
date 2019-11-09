@@ -16,6 +16,6 @@ op=$( dialog --backtitle 'DLDAP - Gerenciamento de Usuários' \
 case "$op" in
         1) src/user/consult.sh ;;
         2) ./src/dldap-groups.sh ;;
-        3) ./src/dlap-hosts.sh ;;
+        3) ./src/user/del-user.sh ;;
         0) exit 0;;
 esac

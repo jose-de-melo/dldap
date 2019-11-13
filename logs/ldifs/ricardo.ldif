@@ -1,0 +1,24 @@
+dn: uid=ricardo,ou=Usuarios,dc=jose,dc=labredes,dc=info
+uid: ricardo
+objectClass: posixAccount
+objectClass: shadowAccount
+objectClass: inetOrgPerson
+cn: ricardo
+sn: vitor
+uidNumber: 10006
+gidNumber: 10006
+homeDirectory: /home/ricardo
+loginShell: /bin/bash
+gecos: Ricardo Vitor
+userPassword: {crypt}$6$u0L.vGBrsOCh7FVk$WlLZhtyYUAmd2YM7xsL8NLWflN4G5lIHfAwm5ejaqNuGcQCTsaic9gaHr7MLzTZhLmwOJEVLNWD73cMz0FmXj0
+shadowLastChange: 18213
+shadowMax: 99999
+shadowWarning: 7
+
+dn: cn=ricardo,ou=Grupos,dc=jose,dc=labredes,dc=info
+cn: ricardo
+objectClass: posixGroup
+objectClass: groupOfUniqueNames
+gidNumber: 10006
+uniqueMember: uid=ricardo,ou=Usuarios,dc=jose,dc=labredes,dc=info
+

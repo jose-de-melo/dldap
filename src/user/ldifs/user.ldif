@@ -3,15 +3,15 @@ uid: <uid>
 objectClass: posixAccount
 objectClass: shadowAccount
 objectClass: inetOrgPerson
-cn: <uid>
-sn: <>
+cn: <cn>
+sn: <sn>
 uidNumber: <id>
 gidNumber: <id>
-homeDirectory: /home/ricardo
+homeDirectory: /home/<uid>
 loginShell: /bin/bash
 gecos: <gecos>
 userPassword: <password>
-shadowLastChange: 18200
+shadowLastChange: <date>
 shadowMax: 99999
 shadowWarning: 7
 

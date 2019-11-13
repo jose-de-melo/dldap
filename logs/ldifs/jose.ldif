@@ -9,8 +9,8 @@ uidNumber: 10005
 gidNumber: 10005
 homeDirectory: /home/jose
 loginShell: /bin/bash
-gecos: José de Melo
-userPassword: {crypt}$6$xknfBX19t68RP7D0$2z7vrK7.9.XWJeHUPN8VAVTuJyFQFBcVoSGW2eOlhwhKYXoNIzc92kLRyh9xDZ3Z0zA3tCUzvcQSTistO5hlP.
+gecos: Jose de Melo
+userPassword: {crypt}$6$mGCDYKQA.PBkehdX$Zcz8M1OpImPCA0BMhP2QWJjZQxg2cWibh94H9WnObJQayqGnz3CoQMtNF0BDrbKBz.6eQtslgcnhKsVP/rMx./
 shadowLastChange: 18213
 shadowMax: 99999
 shadowWarning: 7

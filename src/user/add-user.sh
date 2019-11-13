@@ -95,6 +95,7 @@ fi
 
 cn=$( echo $uid | tr 'A-Z' 'a-z' | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/' )
 sn=$(echo $gecos | awk '{ print $NF }' | tr 'A-Z' 'a-z' | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/')
+gecos=$(echo $gecos | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/')
 uidNumber=$(expr $(src/user/get-greatest-uid.sh) + 1)
 date=$(expr $(date +"%s") / 86400)
 password=$(python -c 'import crypt; import sys;print crypt.crypt(sys.argv[1],crypt.mksalt(crypt.METHOD_SHA512))' $password )

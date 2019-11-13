@@ -10,7 +10,7 @@ gidNumber: 10006
 homeDirectory: /home/ricardo
 loginShell: /bin/bash
 gecos: Ricardo Vitor
-userPassword: {crypt}$6$u0L.vGBrsOCh7FVk$WlLZhtyYUAmd2YM7xsL8NLWflN4G5lIHfAwm5ejaqNuGcQCTsaic9gaHr7MLzTZhLmwOJEVLNWD73cMz0FmXj0
+userPassword: {crypt}$6$t0CY5BAZ6vmxlaJL$Xu2shYyyf.3m48/BVqTqzWt1Ewxbyi6wIoP1CmzBBMl32H4X7imHvmAfcU5W6i5o7M3vNLo.FWnK75dBSyJDY.
 shadowLastChange: 18213
 shadowMax: 99999
 shadowWarning: 7

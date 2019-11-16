@@ -19,8 +19,13 @@ uid=$( dialog --stdout                         \
 #
 if [ -z $uid ];
 then
-	echo "UID não pode ser vazio!"
-	exit 0
+	dialog                                            \
+  --backtitle 'DLDAP - Adiconar Usuário'                 \
+   --title 'Erro!'                             \
+   --msgbox 'UID não pode ser vazio!'  \
+   6 40
+	src/dldap-users.sh
+	exit
 fi
 
 
@@ -37,10 +42,10 @@ while read line
 do
 	if [ $line = $uid ];
 	then
-		echo "O uid fornecido já está cadastrado na base de dados!"
+		dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'O UID fornecido já está sendo usado!' 6 40
 		rm -rf tmp.txt
+        	src/dldap-users.sh
 		exit
-		break
 	fi
 done < tmp.txt
 
@@ -64,8 +69,10 @@ gecos=$( dialog --stdout                         \
 #
 if [ -z $(echo $gecos | awk '{ print $NF}') ];
 then
-        echo "O campo Gecos não pode ser vazio!"
-        exit 0
+	dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'O campo Gecos é obrigatório e não pode ser vazio!' 6 40
+
+	src/dldap-users.sh
+        exit
 fi
 
 
@@ -85,8 +92,10 @@ password=$( dialog --stdout                   \
 #
 if [ -z $password ];
 then
-	echo "Forneça uma senha válida!"
-	exit 0
+	dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'A senha fornecida não é válida!' 6 40
+
+	src/dldap-users.sh
+        exit
 fi
 
 
@@ -105,6 +114,19 @@ cat src/user/ldifs/user.ldif | sed "s/<uid>/$uid/" | sed "s/<date>/$date/" | sed
 cat src/user/ldifs/tmp.ldif | sed "12c\gecos: $gecos" | sed "13c\userPassword: {crypt}$password" >> src/user/ldifs/$uid.ldif
 
 src/user/ldap-add-user.sh $uid
+
+dialog --backtitle "DLDAP - Adicionar Usuário" --yesno 'Deseja inserir o usuário a um grupo já cadastrado?' 10 30 
+
+if [ $? -eq 0 ];
+then
+	groups=$(src/user/select-groups.sh add $uid "Selecionar Grupo(s)" "DLDAP - Adicionar Usuário")
+	
+	for group in $groups
+	do
+		src/group/add-or-del-user-group.sh add $group $uid
+	done
+fi	
+
 
 mv src/user/ldifs/$uid.ldif logs/ldifs
 

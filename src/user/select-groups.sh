@@ -1,7 +1,8 @@
 #!/bin/bash
 op=$1
 user=$2
-
+title=$3
+backtitle=$4
 
 addFilter="!(uniqueMember=uid=$user,ou=Usuarios,dc=jose,dc=labredes,dc=info)"
 delFilter="uniqueMember=uid=$user,ou=Usuarios,dc=jose,dc=labredes,dc=info"
@@ -25,10 +26,11 @@ do
 	LIST+=( $linha "$DESC" off)
 done
 
-
 grupos=$( dialog --stdout \
+	--backtitle "$backtitle" \
+	--title "$title" \
         --separate-output \
-        --checklist 'Selecione um grupo:' 0 0 0 \
+        --checklist '' 0 40 0 \
 	"${LIST[@]}" \
 	) 
 

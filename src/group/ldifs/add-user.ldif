@@ -1,0 +1,3 @@
+dn: cn=<group>,ou=Grupos,dc=jose,dc=labredes,dc=info
+<operation>: uniqueMember
+uniqueMember: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info

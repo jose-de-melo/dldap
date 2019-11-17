@@ -1,0 +1,5 @@
+dn: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+changetype: modrdn
+newrdn: uid=<new_uid>
+deleteoldrdn: 0
+

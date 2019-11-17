@@ -128,3 +128,7 @@ adding new entry "uid=teste2,ou=Usuarios,dc=jose,dc=labredes,dc=info"
 
 adding new entry "cn=teste2,ou=Grupos,dc=jose,dc=labredes,dc=info"
 
+adding new entry "uid=teste,ou=Usuarios,dc=jose,dc=labredes,dc=info"
+
+adding new entry "cn=teste,ou=Grupos,dc=jose,dc=labredes,dc=info"
+

@@ -37,19 +37,17 @@ resposta=$(
              --title "Alterar Usuário: $user"  \
              --menu 'Escolha um atributo para editar:' \
             0 0 0                   \
-            1 'Alterar uid' \
-            2 'Alterar Gecos'  \
-            3 'Alterar Senha'     \
-            4 'Gerenciar Grupos'        \
+            1 'Alterar Gecos'  \
+            2 'Alterar Senha'     \
+            3 'Gerenciar Grupos'        \
             0 'Cancelar'                )
 
 [ $? -ne 0 ] && src/dldap-users.sh && exit
 
 
 case "$resposta" in
-         1) src/user/modify-uid-user.sh $user ;;
-         2) src/user/modify-gecos-user.sh $user ;;
-         3) src/user/modify-password-user.sh $user ;;
-         4) src/user/manage-groups-user.sh $user ;;
+         1) src/user/modify-gecos-user.sh $user ;;
+         2) src/user/modify-password-user.sh $user ;;
+         3) src/user/manage-groups-user.sh $user ;;
          0) src/dldap-users.sh ;;
 esac

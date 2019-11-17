@@ -6,7 +6,7 @@
 # Janela para ler o uid do novo usuário
 #
 uid=$( dialog --stdout                         \
-   --backtitle 'DLDAP - Cadastrar Usuário'      \
+   --backtitle 'DLDAP - Adicionar Usuário'      \
    --title 'Novo Usuário'                         \
    --inputbox '\n\nUsername (uid): '  \
    13 50 )
@@ -20,7 +20,7 @@ uid=$( dialog --stdout                         \
 if [ -z $uid ];
 then
 	dialog                                            \
-  --backtitle 'DLDAP - Adiconar Usuário'                 \
+  --backtitle 'DLDAP - Adicionar Usuário'                 \
    --title 'Erro!'                             \
    --msgbox 'UID não pode ser vazio!'  \
    6 40
@@ -42,7 +42,7 @@ while read line
 do
 	if [ $line = $uid ];
 	then
-		dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'O UID fornecido já está sendo usado!' 6 40
+		dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'O UID fornecido já está sendo usado!' 6 40
 		rm -rf tmp.txt
         	src/dldap-users.sh
 		exit
@@ -58,7 +58,7 @@ rm -rf tmp.txt
 # Janela para ler a informação gecos do novo usuário
 #
 gecos=$( dialog --stdout                         \
-   --backtitle 'DLDAP - Cadastrar Usuário'      \
+   --backtitle 'DLDAP - Adicionar Usuário'      \
    --title 'Novo Usuário'                         \
    --inputbox '\n\nGecos: '  \
    13 50 )
@@ -69,7 +69,7 @@ gecos=$( dialog --stdout                         \
 #
 if [ -z $(echo $gecos | awk '{ print $NF}') ];
 then
-	dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'O campo Gecos é obrigatório e não pode ser vazio!' 6 40
+	dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'O campo Gecos é obrigatório e não pode ser vazio!' 6 40
 
 	src/dldap-users.sh
         exit
@@ -81,7 +81,7 @@ fi
 # Janela para ler a senha para o novo usuário.
 #
 password=$( dialog --stdout                   \
-   --backtitle 'DLDAP - Cadastrar Usuário'      \
+   --backtitle 'DLDAP - Adicionar Usuário'      \
    --title 'Novo Usuário'                         \
    --passwordbox '\n\nSenha: '  \
    13 50 )
@@ -92,7 +92,7 @@ password=$( dialog --stdout                   \
 #
 if [ -z $password ];
 then
-	dialog --backtitle 'DLDAP - Adiconar Usuário' --title 'Erro!' --msgbox 'A senha fornecida não é válida!' 6 40
+	dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'A senha fornecida não é válida!' 6 40
 
 	src/dldap-users.sh
         exit
@@ -141,7 +141,7 @@ rm -rf awkvar.outs
 
 
 dialog                                            \
-  --backtitle 'DLDAP - Adiconar Usuário'                 \
+  --backtitle 'DLDAP - Adicionar Usuário'                 \
    --title 'Sucesso!'                             \
    --msgbox 'Usuário adicionado com êxito!'  \
    6 40

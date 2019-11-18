@@ -32,7 +32,10 @@ grupos=$( dialog --stdout \
         --separate-output \
         --checklist '' 0 40 0 \
 	"${LIST[@]}" \
-	) 
+	)
+
+
+[ $? -ne 0 ] && echo "null" && exit 
 
 
 echo $grupos

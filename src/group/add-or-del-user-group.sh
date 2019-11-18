@@ -6,7 +6,7 @@ operation=$1
 group=$2
 uid=$3
 
-cat src/group/ldifs/add-user.ldif | sed "s/<operation>/$operation/"  |sed "s/<group>/$group/" | sed "s/<uid>/$uid/" >> $operation-$uid-$group.ldif
+cat src/group/ldifs/add-user.ldif | sed "s/<operation>/$operation/"  | sed "s/<group>/$group/" | sed "s/<uid>/$uid/" >> $operation-$uid-$group.ldif
 
 ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $operation-$uid-$group.ldif -w $password >> logs/$operation-user-group.log
 

@@ -121,10 +121,12 @@ if [ $? -eq 0 ];
 then
 	groups=$(src/user/select-groups.sh add $uid "Selecionar Grupo(s)" "DLDAP - Adicionar Usuário")
 	
-	for group in $groups
-	do
-		src/group/add-or-del-user-group.sh add $group $uid
-	done
+	if [ $groups != "null" ];then
+		for group in $groups
+		do
+			src/group/add-or-del-user-group.sh add $group $uid
+		done
+	fi
 fi	
 
 

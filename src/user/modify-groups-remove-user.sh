@@ -13,10 +13,6 @@ do
 done
 
 
-dialog                                            \
-  --backtitle 'DLDAP - Alterar Usuário'                 \
-   --title 'Sucesso!'                             \
-   --msgbox 'Usuário alterado com êxito!'  \
-   6 40
+src/message.sh "DLDAP - Alterar Usuário" "Sucesso!" "Usuário alterado com êxito!"
 
 src/user/modify-user.sh

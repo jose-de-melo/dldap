@@ -44,7 +44,6 @@ resposta=$(
 
 [ $? -ne 0 ] && src/dldap-users.sh && exit
 
-
 case "$resposta" in
          1) src/user/modify-gecos-user.sh $user ;;
          2) src/user/modify-password-user.sh $user ;;

@@ -7,7 +7,7 @@ message=$3
 
 
 dialog                                            \
-  --backtitle $backtitle                \
-   --title $title                             \
-   --msgbox $message  \
+  --backtitle "$backtitle"                \
+   --title "$title"                             \
+   --msgbox "$message"  \
    6 40

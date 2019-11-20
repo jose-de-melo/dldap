@@ -9,9 +9,9 @@ op=$( dialog --backtitle 'DLDAP - Gerenciamento de Usuários' \
         2 'Consultar Usuário' \
 	3 'Alterar Usuário' \
         4 'Excluir Usuário' \
-	0 'Sair'  )
+	0 'Voltar'  )
 
-[ $? -ne 0 ] && exit
+[ $? -ne 0 ] && exit && ./dldap.sh
 
 
 case "$op" in
@@ -19,5 +19,5 @@ case "$op" in
         2) src/user/consult.sh ;;
 	3) src/user/modify-user.sh ;;
         4) src/user/del-user.sh ;;
-        0) exit 0;;
+        0) ./dldap.sh ;;
 esac

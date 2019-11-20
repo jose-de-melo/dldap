@@ -1,9 +1,5 @@
 #!/bin/bash
 
-dialog --backtitle "DLDAP" \
---title "Bem-vindo!" \
---msgbox 'Para prosseguir, aperte ENTER ou Ctrl+C para sair.' 10 30
-
 resposta=$(
       dialog --backtitle "DLDAP" --stdout               \
              --title 'Menu'  \
@@ -12,6 +8,7 @@ resposta=$(
             1 'Gerenciamento de Usuários' \
             2 'Gerenciamento de Grupos'  \
             3 'Gerenciamento de Máquinas'     \
+	    4 'Sobre o DLDAP'			\
             0 'Sair'                )
 
 	
@@ -23,6 +20,7 @@ case "$resposta" in
 	1) ./src/dldap-users.sh ;;
 	2) ./src/dldap-groups.sh ;;
 	3) ./src/dlap-hosts.sh ;;
+	4) src/about-dldap.sh ;;
 	0) exit ;;
 esac
 

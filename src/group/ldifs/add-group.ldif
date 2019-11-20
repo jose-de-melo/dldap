@@ -1,0 +1,6 @@
+dn: cn=<cn>,ou=Grupos,dc=jose,dc=labredes,dc=info
+cn: <cn>
+objectClass: posixGroup
+objectClass: groupOfUniqueNames
+gidNumber: <gid>
+

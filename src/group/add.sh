@@ -87,8 +87,14 @@ echo "" >> $cn.ldif
 ldapadd -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $cn.ldif -w $password >> logs/groupadd.log
 
 
+src/message.sh "DLDAP - Adicionar Grupo" "Sucesso" "Grupo adicionado com sucesso!"
+
+
+
 echo "ADD GROUP $cn\n" >> logs/groupadd.log
 mv $cn.ldif logs/ldifs
+
+src/dldap-groups.sh
 
 
 

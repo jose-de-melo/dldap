@@ -11,7 +11,7 @@ op=$( dialog --backtitle 'DLDAP - Gerenciamento de Usuários' \
         4 'Excluir Usuário' \
 	0 'Voltar'  )
 
-[ $? -ne 0 ] && exit && ./dldap.sh
+[ $? -ne 0 ] && ./dldap.sh && exit
 
 
 case "$op" in

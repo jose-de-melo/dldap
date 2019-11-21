@@ -12,7 +12,7 @@ resposta=$(
             2 'Remover o usuário do grupo'     \
             0 'Cancelar'                )
 
-[ $? -ne 0 ] && src/user/modify-user.sh && exit
+[ $? -ne 0 ] && src/dldap-users.sh && exit
 
 
 case "$resposta" in

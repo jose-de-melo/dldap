@@ -4,7 +4,10 @@ user=$1
 
 groups=$(src/user/select-groups.sh add $user "Selecione um ou mais grupos:" "DLDAP - Alterar Usuário")
 
-[ "$groups" = "null" ] && src/user/modify-user.sh && exit
+if [ "$groups" = "null" ]; then
+	src/user/modify-user.sh
+	exit
+fi
 
 
 for group in $groups

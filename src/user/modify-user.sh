@@ -28,8 +28,10 @@ user=$( dialog --stdout \
         "${LIST[@]}" \
 )
 
-[ $? -ne 0 ] && src/dldap-users.sh && exit
-
+if [ $? -ne 0 ]; then
+	src/dldap-users.sh
+	exit
+fi
 
 resposta=$(
       dialog --stdout               \
@@ -42,7 +44,10 @@ resposta=$(
             3 'Gerenciar Grupos'        \
             0 'Cancelar'                )
 
-[ $? -ne 0 ] && src/dldap-users.sh && exit
+if [ $? -ne 0 ]; then
+	src/dldap-users.sh
+	exit
+fi
 
 case "$resposta" in
          1) src/user/modify-gecos-user.sh $user ;;

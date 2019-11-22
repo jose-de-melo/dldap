@@ -4,7 +4,11 @@ user=$1
 
 groups=$(src/user/select-groups.sh delete $user "Selecione o grupo para remover o usuário" "DLDAP - Alterar Usuário")
 
-[ "$groups" = "null" ] && src/user/modify-user.sh && exit
+
+if [ "$groups" = "null" ]; then
+	src/user/modify-user.sh
+	exit
+fi
 
 
 for group in $groups

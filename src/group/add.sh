@@ -23,7 +23,7 @@ ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b 
 if [ $? -eq 0 ] ;
 then
 	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "O nome fornecido já está sendo utilizado na base!"	
-	#src/dldap-groups.sh
+	src/dldap-groups.sh
 	exit
 fi
 
@@ -39,7 +39,7 @@ desc=$( dialog --stdout                         \
 if [ -z "$desc" ] ;
 then
         src/message.sh "DLDAP - Adicionar Grupo" "Erro" "A descrição do grupo não pode ser vazia!"
-        #src/dldap-groups.sh
+        src/dldap-groups.sh
         exit
 fi
 
@@ -69,7 +69,7 @@ gid=$(expr $(src/group/get-greatest-gid.sh) + 1)
 if [ -z "$users" ];
 then
 	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "Selecione pelo menos um usuário para adicionar ao grupo $cn!"
-        #src/dldap-groups.sh
+        src/dldap-groups.sh
         exit
 
 fi

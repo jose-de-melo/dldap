@@ -7,5 +7,11 @@ dialog --backtitle "DLDAP - Excluir Usuário: $user" --title 'Confirmar Exclusã
 
 if [ $? = 0 ]; then
         ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "uid=$user,ou=Usuarios,dc=jose,dc=labredes,dc=info" -w $password >> /dev/null
-	ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "cn=$user,ou=Grupos,dc=jose,dc=labredes,dc=info" -w $password >> /dev/null
+
+ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "ou=Grupos,dc=jose,dc=labredes,dc=info" "(&(objectClass=posixGroup)(cn=$user))" cn -w $password | grep $user > /dev/null
+
+	if [ $? = 0 ];
+	then
+		ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "cn=$user,ou=Grupos,dc=jose,dc=labredes,dc=info" -w $password >> /dev/null
+	fi
 fi

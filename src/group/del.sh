@@ -36,8 +36,9 @@ fi
 dialog --backtitle "DLDAP - Excluir Grupo" --title 'Confirmar Exclusão' --yesno "\n\nConfirmar exclusão do grupo $group?" 10 40
 
 if [ $? = 0 ]; then
-	 ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "cn=$group,ou=Grupos,dc=jose,dc=labredes,dc=info" -w $password > /dev/null
+	 ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "cn=$group,ou=Grupos,dc=jose,dc=labredes,dc=info" -w $password >> logs/del-groups.log
 	dialog --backtitle "DLDAP - Excluir Usuário" --title "Exclusão Realizada" --ok-label "Voltar" --msgbox "\nO grupo $group foi excluído!" 8 40
+	echo -e "\nDELETE GROUP $group" >> logs/del-groups.log
 	src/dldap-groups.sh
 else
 	dialog --backtitle "DLDAP - Excluir Usuário" --title "Exlcusão cancelada" --ok-label "Voltar" --msgbox "\nO grupo $group não será excluído!" 8 40

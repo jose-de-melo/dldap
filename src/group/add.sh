@@ -58,7 +58,7 @@ users=$( dialog --stdout \
         --backtitle "DLDAP - Adicionar Grupo" \
         --title "Selecionar usuários" \
         --separate-output \
-        --checklist 'Selecione um ou mais usuários para adicionar ao grupo:' 0 40 0 \
+        --checklist 'Selecione no mínimo um usuário criar o grupo:' 0 40 0 \
         "${LIST[@]}" \
         )
 
@@ -68,7 +68,7 @@ gid=$(expr $(src/group/get-greatest-gid.sh) + 1)
 
 if [ -z "$users" ];
 then
-	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "Selecione pelo menos um usuário para adicionar ao grupo $cn!"
+	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "Selecione ao menos um usuário ao criar um novo grupo!"
         src/dldap-groups.sh
         exit
 

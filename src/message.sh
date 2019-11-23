@@ -6,7 +6,8 @@ message=$3
 
 
 
-dialog                                            \
+dialog	\
+  --cr-wrap                                            \
   --backtitle "$backtitle"                \
    --title "$title"                             \
    --msgbox "$message"  \

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 resposta=$(
-      dialog --backtitle "DLDAP" --stdout               \
+      dialog --cancel-label "Sair" --backtitle "DLDAP" --stdout               \
              --title 'Menu'  \
              --menu 'Escolha uma opção:' \
             0 0 0                   \
@@ -19,7 +19,7 @@ resposta=$(
 case "$resposta" in
 	1) ./src/dldap-users.sh ;;
 	2) ./src/dldap-groups.sh ;;
-	3) ./src/dlap-hosts.sh ;;
+	3) ./src/dldap-hosts.sh ;;
 	4) src/about-dldap.sh ;;
 	0) exit ;;
 esac

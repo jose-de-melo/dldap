@@ -50,7 +50,7 @@ done
 
 dialog --backtitle "DLDAP - Consultar Grupo: $group"      \
    --title 'Dados do Grupo'   \
-   --msgbox "Nome (cn): $group\nDescrição: $description\nMembros: $strMember" 10 60
+   --msgbox "\nNome (cn): $group\nDescrição: $description\nMembros: $strMember" 10 60
 
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-op=$( dialog --backtitle 'DLDAP - Gerenciamento de Usuários' \
+op=$( dialog --cancel-label "Voltar" --backtitle 'DLDAP - Gerenciamento de Usuários' \
         --stdout                 \
         --menu 'Selecione uma opção:'       \
         0 0 0                    \
@@ -11,7 +11,11 @@ op=$( dialog --backtitle 'DLDAP - Gerenciamento de Usuários' \
         4 'Excluir Grupo' \
         0 'Voltar'  )
 
-[ $? -ne 0 ] && exit && ./dldap.sh
+if [ $? -ne 0 ];
+then
+	./dldap.sh
+	exit
+fi
 
 
 case "$op" in

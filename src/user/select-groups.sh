@@ -35,7 +35,10 @@ grupos=$( dialog --stdout \
 	)
 
 
-[ $? -ne 0 ] && echo "null" && exit 
+if [ $? -ne 0 ];then
+	echo "null"
+	exit 
+fi
 
 
 echo $grupos

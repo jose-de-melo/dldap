@@ -13,7 +13,7 @@ gecos=$( dialog --stdout                         \
 
 
 
-if [ -z gecos ];
+if [ -z "$gecos" ];
 then
 	dialog --backtitle 'DLDAP - Alterar Usuário' --title 'Erro!' --msgbox 'O novo valor não pode ser vazio!' 6 40
         src/dldap-users.sh
@@ -22,6 +22,9 @@ fi
 
 
 password=$(cat .password)
+
+
+gecos=$(echo $gecos | sed 'y/áÁàÀãÃâÂéÉêÊíÍóÓõÕôÔúÚçÇ/aAaAaAaAeEeEiIoOoOoOuUcC/')
 
 cat src/user/ldifs/modify-gecos-user.ldif | sed "s/<uid>/$uid/" | sed "s/<gecos>/$gecos/" >> $uid-replace-gecos.ldif
 
@@ -40,14 +43,3 @@ dialog                                            \
    6 40
 
 src/dldap-users.sh
-
-
-
-
-
-
-
-
-
-
-

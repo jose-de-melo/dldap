@@ -12,7 +12,10 @@ resposta=$(
             2 'Remover o usuário do grupo'     \
             0 'Cancelar'                )
 
-[ $? -ne 0 ] && src/dldap-users.sh && exit
+if [ $? -ne 0 ];then
+	src/dldap-users.sh
+	exit
+fi
 
 
 case "$resposta" in

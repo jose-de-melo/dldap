@@ -48,6 +48,6 @@ fi
 
 case "$resposta" in
          1) src/group/modify-description.sh $group ;;
-         2) src/user/manage-users.sh $group ;;
+         2) src/group/manage-users.sh $group ;;
          0) src/dldap-users.sh ;;
 esac

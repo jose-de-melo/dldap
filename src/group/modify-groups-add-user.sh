@@ -45,7 +45,7 @@ fi
 
 users=$( dialog --stdout \
         --backtitle "DLDAP - Alterar Grupo" \
-        --title "Adicionar Usuários : $group" \
+        --title "Adicionar Membros : $group" \
         --separate-output \
         --checklist '' 0 40 0 \
         "${LIST[@]}" \
@@ -69,14 +69,3 @@ dialog                                            \
    8 40
 
 src/dldap-groups.sh
-
-
-
-
-
-
-
-
-
-
-

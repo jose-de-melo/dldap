@@ -13,6 +13,7 @@ for linha in $(echo $groups)
 do
         if [ $first ];then
                 LIST+=( $linha "$DESC" on)
+		first=false
         else
                 LIST+=( $linha "$DESC" off)
         fi

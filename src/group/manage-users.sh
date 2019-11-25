@@ -14,7 +14,7 @@ resposta=$(
 
 if [ $? -ne 0 ]; 
 then
-	src/dldap-users.sh
+	src/dldap-groups.sh
 	exit
 fi
 

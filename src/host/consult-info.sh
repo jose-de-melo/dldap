@@ -23,7 +23,7 @@ do
 done
 
 dialog --backtitle "DLDAP - Consultar Máquina"      \
-   --title "Informações da Host : $cn"   \
+   --title "Informações do Host : $cn"   \
    --msgbox "\nDESCRIÇÃO: $desc\n$txtIf" 10 70
 
 rm -rf tmp

@@ -15,6 +15,22 @@ do
         LIST+=( $int "$DESC" off)
 done
 
+if [ ${#LIST[@]} -eq 0 ];
+then
+        dialog                                            \
+  --backtitle 'DLDAP - Alterar Grupo'                 \
+   --title 'INFO'                             \
+   --msgbox "\nA máquina $cn não possui nenhuma interface cadastrada! \n"  \
+   8 50
+        src/dldap-hosts.sh
+	rm -rf tmp
+        exit
+fi
+
+
+
+
+
 interface=$( dialog --stdout --cancel-label "Cancelar" \
         --backtitle "DLDAP - Consultar Máquina" \
         --title "Selecione uma interface:" \

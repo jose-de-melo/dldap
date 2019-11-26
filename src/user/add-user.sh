@@ -12,6 +12,10 @@ uid=$( dialog --stdout                         \
    13 50 )
 
 
+if [ $? -ne 0 ];then
+	src/dldap-users.sh
+	exit
+fi
 
 #
 # Verificando se o usuário não deixou o campo em branco. Caso tenha feito isso, a criação de um novo 
@@ -36,22 +40,13 @@ fi
 basePass=$(cat .password)
 
 
-ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(objectClass=posixAccount)" -w $basePass | grep uid: | cut -d" " -f2 > tmp.txt
+ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(objectClass=posixAccount)" -w $basePass | grep "uid: $uid"
 
-while read line
-do
-	if [ $line = $uid ];
-	then
+if [ $? -eq 0 ]; then
 		dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'O UID fornecido já está sendo usado!' 6 40
-		rm -rf tmp.txt
         	src/dldap-users.sh
 		exit
-	fi
-done < tmp.txt
-
-rm -rf tmp.txt
-
-
+fi
 
 
 #
@@ -64,13 +59,18 @@ gecos=$( dialog --stdout                         \
    13 50 )
 
 
+if [ $? -ne 0 ];then
+	src/dldap-users.sh
+	exit
+fi
+
+
 #
 # Verificando se o valor lido não está vazio. Se estiver, o programa será abortado.
 #
 if [ -z $(echo $gecos | awk '{ print $NF}') ];
 then
 	dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'O campo Gecos é obrigatório e não pode ser vazio!' 6 40
-
 	src/dldap-users.sh
         exit
 fi
@@ -86,6 +86,11 @@ password=$( dialog --stdout                   \
    --passwordbox '\n\nSenha: '  \
    13 50 )
 
+
+if [ $? -ne 0 ]; then
+	src/dldap-users.sh
+	exit
+fi
 
 #
 # Verficando se o valor lido não está vazio
@@ -129,12 +134,7 @@ then
 	fi
 fi	
 
-
 mv src/user/ldifs/$uid.ldif logs/ldifs
-
-
-
-
 
 rm -rf src/user/ldifs/tmp.ldif
 rm -rf awkvar.outs

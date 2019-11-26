@@ -14,11 +14,14 @@ password=$( dialog --stdout                   \
    13 50 )
 
 
-[ $? -ne 0 ] && src/dldap-users.sh && exit
+if [ $? -ne 0 ];then
+	src/dldap-users.sh
+	exit
+fi
 
 
 
-if [ -z password ];
+if [ -z "$password" ];
 then
         dialog --backtitle 'DLDAP - Alterar Usuário' --title 'Erro!' --msgbox 'Forneça uma senha válida!' 6 40
         src/dldap-users.sh

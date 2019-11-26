@@ -9,7 +9,10 @@ gecos=$( dialog --stdout                         \
    --inputbox '\n\nNovo valor: '  \
    13 50 )
 
-[ $? -ne 0 ] && src/dldap-users.sh && exit
+if [ $? -ne 0 ]; then
+	src/dldap-users.sh
+	exit
+fi
 
 
 

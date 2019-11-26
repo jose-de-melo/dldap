@@ -12,7 +12,10 @@ resposta=$(
             'Voltar' ''         )
 
 
-[ $? -ne 0 ] && src/dldap-users.sh
+if [ $? -ne 0 ]; then
+	src/dldap-users.sh
+	exit
+fi
 
 if [ $? -eq 1 ]; then
 	if [ $resposta = 'Voltar' ];then

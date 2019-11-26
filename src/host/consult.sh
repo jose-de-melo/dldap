@@ -2,24 +2,21 @@
 
 password=$(cat .password)
 
-hostInfo=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "ou=Maquinas,dc=jose,dc=labredes,dc=info" "objectClass=nisNetGroup" -w $password )
-
-hosts=$(cat $hostInfo | grep cn: | cut -d" " -f2)
+hosts=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "ou=Maquinas,dc=jose,dc=labredes,dc=info" "objectClass=nisNetGroup" -w $password | grep cn: | cut -d" " -f2)
 
 
 LIST=()
 
-for host in $(echo $hosts)
+for h in $(echo $hosts)
 do
         DESC=''
-        LIST+=( $host "$DESC" off)
+        LIST+=( $h "$DESC" off)
 done
 
 host=$( dialog --stdout \
         --backtitle "DLDAP - Gerenciamento de Máquinas" \
         --title "Consultar Máquina" \
-        --separate-output \
-        --checklist '' 0 40 0 \
+        --radiolist '' 0 40 0 \
         "${LIST[@]}" \
        )
 
@@ -30,16 +27,22 @@ fi
 
 cn=$host
 
-ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "cn=$cn,ou=Maquinas,dc=jose,dc=labredes,dc=info" "(objectClass=ipHost)" -w $password > tmp
+op=$( dialog --cancel-label "Voltar" --backtitle 'DLDAP - Gerenciamento de Máquinas' \
+        --stdout                 \
+        --menu 'Selecione uma opção:'       \
+        0 0 0                    \
+        1 "Consultar Informações : $cn" \
+        2 "Consultar Interfaces : $cn" \
+        0 'Voltar'  )
 
-ifs=$(cat tmp | grep cn: | cut -d" " -f2)
-
-for interface in $ifs
-do
-	echo $interface
-done
+if [ $? -ne 0 ];then
+        ./dldap-hosts.sh
+        exit
+fi
 
 
-
-
-rm -rf tmp
+case "$op" in
+        1) src/host/consult-info.sh $cn;;
+        2) src/host/consult-ifs.sh $cn;;
+        0) ./dldap-hosts.sh ;;
+esac

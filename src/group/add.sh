@@ -9,12 +9,15 @@ cn=$( dialog --stdout                         \
    --inputbox '\n\nNome (cn): '  \
    13 50 )
 
-[ $? -ne 0 ] && src/dldap-groups.sh && exit
+if [ $? -ne 0 ]; then
+	src/dldap-groups.sh
+	exit
+fi
 
 if [ -z "$cn" ] ;
 then
 	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "O nome do grupo não pode ser nulo!"
-	#src/dldap-groups.sh
+	src/dldap-groups.sh
 	exit
 fi
 
@@ -34,7 +37,10 @@ desc=$( dialog --stdout                         \
    --inputbox '\n\nDescrição do grupo: '  \
    13 50 )
 
-[ $? -ne 0 ] && src/dldap-groups.sh && exit
+if [ $? -ne 0 ];then
+	src/dldap-groups.sh
+	exit
+fi
 
 if [ -z "$desc" ] ;
 then
@@ -62,17 +68,20 @@ users=$( dialog --stdout \
         "${LIST[@]}" \
         )
 
-
-gid=$(expr $(src/group/get-greatest-gid.sh) + 1)
-
+if [ $? -ne 0 ];then
+	src/dldap-groups.sh
+	exit
+fi
 
 if [ -z "$users" ];
 then
 	src/message.sh "DLDAP - Adicionar Grupo" "Erro" "Selecione ao menos um usuário ao criar um novo grupo!"
         src/dldap-groups.sh
         exit
-
 fi
+
+
+gid=$(expr $(src/group/get-greatest-gid.sh) + 1)
 
 cat src/group/ldifs/add-group.ldif | sed "s/<cn>/$cn/" | sed "s/<desc>/$desc/" | sed "s/<gid>/$gid/" >> $cn.ldif
 
@@ -95,22 +104,3 @@ echo "ADD GROUP $cn\n" >> logs/groupadd.log
 mv $cn.ldif logs/ldifs
 
 src/dldap-groups.sh
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

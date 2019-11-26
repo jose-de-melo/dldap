@@ -12,14 +12,14 @@ desc=$( dialog --stdout                         \
    13 50 )
 
 if [ $? -ne 0 ];then
-	#src/dldap-groups.sh
+	src/dldap-groups.sh
 	exit
 fi
 
 if [ -z "$desc" ];
 then
         dialog --backtitle 'DLDAP - Alterar Grupo' --title 'Erro!' --msgbox 'O novo valor não pode ser vazio!' 6 40
-        #src/dldap-groups.sh
+        src/dldap-groups.sh
         exit
 fi
 

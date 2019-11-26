@@ -20,23 +20,23 @@ do
 	fi
 done
 
-
-if [ ${#LIST[@]} -eq 0 ];
+if [ ${#LIST[@]} -eq 3 ];
 then
         dialog                                            \
   --backtitle 'DLDAP - Alterar Grupo'                 \
    --title 'Erro'                             \
-   --msgbox "\nO grupo $group não possui membros !"  \
-   8 40
+   --msgbox "\nO grupo $group possui apenas um membro, nesse caso, a remoção do mesmo não pode ser realizada para não afetar a integridade do objeto !\n"  \
+   10 50
         src/dldap-groups.sh
         exit
 fi
 
-users=$( dialog --stdout \
+
+
+user=$( dialog --stdout \
         --backtitle "DLDAP - Alterar Grupo" \
-        --title "Remover Membros : $group" \
-        --separate-output \
-        --checklist 'AVISO: Ao menos um usuário deve ser mantido como membro do grupo, caso você tente remover todos os usuários, o último da listagem será mantido como membro do grupo.' 10 50 0 \
+        --title "Remover Membro : $group" \
+        --radiolist '' 10 50 0 \
         "${LIST[@]}" \
         )
 
@@ -45,16 +45,13 @@ if [ $? -ne 0 ]; then
         exit
 fi
 
-for user in $users
-do
-        src/group/add-or-del-user-group.sh delete $group $user > /dev/null
-done
+src/group/add-or-del-user-group.sh delete $group $user
 
 
 dialog                                            \
   --backtitle 'DLDAP - Alterar Grupo'                 \
    --title 'Sucesso!'                             \
-   --msgbox "\nNúmero de membros do grupo $group atualizado."  \
+   --msgbox "\nO usuário $user foi removido do grupo $group !"  \
    8 40
 
 src/dldap-groups.sh

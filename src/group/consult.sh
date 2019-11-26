@@ -27,7 +27,10 @@ group=$( dialog --stdout \
         )
 
 
-[ $? -ne 0 ] && src/dldap-groups.sh && exit
+if [ $? -ne 0 ]; then
+	src/dldap-groups.sh
+	exit
+fi
 
 ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(&(objectClass=posixGroup)(cn=$group))" -w $password > tmp
 

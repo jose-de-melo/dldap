@@ -1,0 +1,5 @@
+dn: cn=<cn>,ou=Maquinas,dc=herlon,dc=labredes,dc=info
+cn: <cn>
+objectClass: nisNetgroup
+description: <description>
+

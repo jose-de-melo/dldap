@@ -17,10 +17,8 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-if [ $? -eq 1 ]; then
-	if [ $resposta = 'Voltar' ];then
-		./src/dldap-users.sh
-	else
-		src/user/show-user.sh $resposta
-	fi
+if [ $resposta = 'Voltar' ];then
+	./src/dldap-users.sh
+else
+	src/user/show-user.sh $resposta
 fi

@@ -22,16 +22,16 @@ interface=$( dialog --stdout --cancel-label "Cancelar" \
         "${LIST[@]}" \
         )
 
-if [ -z "$interface" ]; then
-	dialog --backtitle "DLDAP - Consultar Máquina" --title "Erro" --msgbox "\nEscolha ao menos uma interface para consultar!" 8 50
+
+if [ $? -ne 0 ]; then
 	src/dldap-hosts.sh
 	exit
 fi
 
-
-if [ $? -ne 0 ];then
-        src/dldap-hosts.sh
-        exit
+if [ -z "$interface" ]; then
+	dialog --backtitle "DLDAP - Consultar Máquina" --title "Erro" --msgbox "\nEscolha ao menos uma interface para consultar!" 8 50
+	src/dldap-hosts.sh
+	exit
 fi
 
 ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "cn=$interface,cn=$cn,ou=Maquinas,dc=jose,dc=labredes,dc=info" "(objectClass=ipHost)" -w $password > tmp

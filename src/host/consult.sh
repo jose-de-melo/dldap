@@ -36,7 +36,7 @@ op=$( dialog --cancel-label "Voltar" --backtitle 'DLDAP - Gerenciamento de Máqu
         0 'Voltar'  )
 
 if [ $? -ne 0 ];then
-        ./dldap-hosts.sh
+        src/dldap-hosts.sh
         exit
 fi
 

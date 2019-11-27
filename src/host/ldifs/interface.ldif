@@ -1,0 +1,11 @@
+dn: cn=<cn>,cn=<host>,ou=Maquinas,dc=jose,dc=labredes,dc=info
+cn: <cn>
+objectClass: ipHost
+objectClass: ipNetwork
+objectClass: ieee802Device
+description: <description>
+ipHostNumber: <ip>
+ipNetmaskNumber: <mask>
+ipNetworkNumber: <ipNet>
+macAddress: <mac>
+

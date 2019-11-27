@@ -39,7 +39,7 @@ if [ $? -ne 0 ];then
 fi
 
 if [ -z "$cn" ];then
-         dialog --backtitle 'DLDAP - Adicionar Usuário' --title 'Erro!' --msgbox 'A descrição não pode ser vazia!' 6 40
+         dialog --backtitle 'DLDAP - Adicionar Máquina' --title 'Erro!' --msgbox 'A descrição não pode ser vazia!' 6 40
         src/dldap-hosts.sh
         exit
 fi

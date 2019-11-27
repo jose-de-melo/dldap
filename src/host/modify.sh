@@ -45,7 +45,7 @@ fi
 case "$op" in
         1) src/host/modify-desc.sh $cn;;
         2) src/host/modify-if.sh $cn;;
-	3) src/host/add-if.sh ;;
-	4) src/host/remove-if.sh ;;
+	3) src/host/add-if.sh $cn;;
+	4) src/host/remove-if.sh $cn;;
         0) ./dldap-hosts.sh ;;
 esac

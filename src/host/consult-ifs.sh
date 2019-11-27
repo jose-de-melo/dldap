@@ -18,7 +18,7 @@ done
 if [ ${#LIST[@]} -eq 0 ];
 then
         dialog                                            \
-  --backtitle 'DLDAP - Alterar Grupo'                 \
+  --backtitle 'DLDAP - Alterar Máquina'                 \
    --title 'INFO'                             \
    --msgbox "\nA máquina $cn não possui nenhuma interface cadastrada! \n"  \
    8 50

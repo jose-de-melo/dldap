@@ -1,0 +1,5 @@
+dn: cn=<interface>,cn=<host>,ou=Maquinas,dc=jose,dc=labredes,dc=info
+changetype: modify
+replace: <attr>
+<attr>: <value>
+

@@ -12,4 +12,4 @@ done
 
 ldapdelete -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 "cn=$host,ou=Maquinas,dc=jose,dc=labredes,dc=info" -w $password >> /dev/null
 
-echo "$(date +"%s") - DELETE HOST $host" >> logs/delete-hosts.log 
+echo "$(date "+%H:%M") - DELETE HOST $host" >> logs/$(date "+%d%m%Y")-dldap.log

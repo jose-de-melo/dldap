@@ -51,7 +51,8 @@ cat src/host/ldifs/host.ldif | sed "s/<cn>/$cn/" | sed "4c\description: $desc" >
 
 ldapadd -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f add-host-$cn.ldif -w $password >> logs/add-host.log
 
-echo "\nADD HOST $cn" >> logs/add-host.log
+echo "$(date "+%H:%M") - ADD HOST $cn" >> logs/$(date "+%d%m%Y")-dldap.log
+
 mv add-host-$cn.ldif logs/ldifs
 
 dialog --backtitle "DLDAP - Cadastrar Máquina" --title "INFO" --msgbox "\nMáquina cadastrada com sucesso!\n\nPara cadastrar interfaces de rede para a máquina, selecione 'Alterar Máquina' e escolha a máquina que acabou de cadastrar." 10 70

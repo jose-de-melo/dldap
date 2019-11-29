@@ -27,7 +27,8 @@ cat src/host/ldifs/modify.ldif | sed "s/<attr>/description/" | sed "s/<host>/$ho
 
 ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $host.ldif -w $password >> logs/modify-hosts.log
 
-echo -e "MODIFY DESCRIPTION FROM HOST $host TO $desc \n" >> logs/modify-groups.log
+
+echo "$(date "+%H:%M") - MODIFY DESCRIPTION FROM HOST $host TO $desc" >> logs/$(date "+%d%m%Y")-dldap.log
 
 mv $host.ldif logs/ldifs
 

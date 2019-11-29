@@ -99,8 +99,7 @@ ldapadd -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $cn.ldif
 src/message.sh "DLDAP - Adicionar Grupo" "Sucesso" "Grupo adicionado com sucesso!"
 
 
-
-echo "ADD GROUP $cn\n" >> logs/groupadd.log
+echo "$(date "+%H:%M") - ADD GROUP $cn" >> logs/$(date "+%d%m%Y")-dldap.log
 mv $cn.ldif logs/ldifs
 
 src/dldap-groups.sh

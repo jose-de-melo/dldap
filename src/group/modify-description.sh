@@ -30,7 +30,7 @@ cat src/group/ldifs/add-description.ldif | sed "s/<group>/$group/" | sed "4c\des
 
 ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $group.ldif -w $password >> logs/modify-groups.log
 
-echo -e "MODIFY DESCRIPTION FROM GROUP $group TO $desc \n" >> logs/modify-groups.log
+echo "$(date "+%H:%M") - MODIFY DESCRIPTION FROM GROUP $group TO $desc" >> logs/$(date "+%d%m%Y")-dldap.log
 
 mv $group.ldif logs/ldifs
 

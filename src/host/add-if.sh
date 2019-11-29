@@ -124,7 +124,7 @@ cat src/host/ldifs/interface.ldif | sed "s/<cn>/$cn/" | sed "s/<host>/$host/" | 
 
 ldapadd -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f if-$cn-$host.ldif -w $password >> logs/modify-hosts.log
 
-echo "\nADD INTERFACE $cn TO HOST $host" >> logs/modify-hosts.log
+echo "$(date "+%H:%M") - ADD INTERFACE $cn TO HOST $host" >> logs/$(date "+%d%m%Y")-dldap.log
 mv if-$cn-$host.ldif logs/ldifs
 
 dialog --backtitle "DLDAP - Alterar Máquina" --title "INFO" --msgbox "\nInterface $cn adicionada ao host $host!" 6 50

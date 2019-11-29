@@ -18,7 +18,7 @@ done
 if [ ${#LIST[@]} -eq 0 ];
 then
         dialog                                            \
-  --backtitle 'DLDAP - Alterar Máquina'                 \
+  --backtitle 'DLDAP - Consultar Máquina'                 \
    --title 'INFO'                             \
    --msgbox "\nA máquina $cn não possui nenhuma interface cadastrada! \n"  \
    8 50
@@ -45,7 +45,7 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ -z "$interface" ]; then
-	dialog --backtitle "DLDAP - Consultar Máquina" --title "Erro" --msgbox "\nEscolha ao menos uma interface para consultar!" 8 50
+	dialog --backtitle "DLDAP - Consultar Máquina" --title "Erro" --msgbox "\nSelecione uma interface para consultar!" 8 50
 	src/dldap-hosts.sh
 	exit
 fi

@@ -38,7 +38,7 @@ rm -rf tmp
 
 ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $uid-replace-password.ldif -w $pass >> logs/modify-users.log
 
-echo -e "MODIFY PASSWORD FROM $uid \n" >> logs/modify-users.log
+echo "$(date "+%H:%M") - MODIFY PASSWORD FROM $uid" >> logs/$(date "+%d%m%Y")-dldap.log
 
 mv $uid-replace-password.ldif logs/ldifs
 

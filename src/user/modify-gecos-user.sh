@@ -34,10 +34,9 @@ cat src/user/ldifs/modify-gecos-user.ldif | sed "s/<uid>/$uid/" | sed "s/<gecos>
 
 ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $uid-replace-gecos.ldif -w $password >> logs/modify-users.log
 
-echo -e "MODIFY GECOS FROM $uid TO $gecos \n" >> logs/modify-users.log
+echo "$(date "+%H:%M") - MODIFY GECOS FROM $uid TO $gecos" >> logs/$(date "+%d%m%Y")-dldap.log
 
 mv $uid-replace-gecos.ldif logs/ldifs
-
 
 dialog                                            \
   --backtitle 'DLDAP - Alterar Usuário'                 \

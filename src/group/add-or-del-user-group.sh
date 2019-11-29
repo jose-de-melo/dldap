@@ -13,9 +13,9 @@ ldapmodify -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f $oper
 
 if [ $operation = "add" ];
 then
-	echo -e "ADD MEMBER $uid TO GROUP $group\n" >> logs/$operation-user-group.log
+	echo "$(date "+%H:%M") - ADD MEMBER $uid TO GROUP $group" >> logs/$(date "+%d%m%Y")-dldap.log
 else
-	echo -e "DELETE MEMBER $uid FROM GROUP $group\n" >> logs/$operation-user-group.log
+	echo "$(date "+%H:%M") - DELETE MEMBER $uid FROM GROUP $group" >> logs/$(date "+%d%m%Y")-dldap.log
 fi
 
 mv $operation-$uid-$group.ldif logs/ldifs/

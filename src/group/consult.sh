@@ -1,13 +1,22 @@
 #!/bin/bash
 
-password=$(cat .password)
+########################
+## Obtendo as informações da base
+########################
+base=$(./getconfig.sh base)
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
+
+########################
+## Obtendo os grupos da base LDAP
+########################
+groups=$(ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "$base" "(objectClass=posixGroup)" cn -w $password | grep cn: | cut -d" " -f2)
 
 
-groups=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(objectClass=posixGroup)" cn -w $password | grep cn: | cut -d" " -f2)
-
-
+#########################
+## Montando os opções do radiolist
+#########################
 LIST=()
-
 first=true
 DESC=''
 for linha in $(echo $groups)
@@ -19,6 +28,9 @@ do
 	fi
 done
 
+#########################
+## Exibindo o radiolist com os grupos obtidos
+#########################
 group=$( dialog --stdout \
         --backtitle "DLDAP - Consultar Grupo" \
         --title "Consultar Grupo" \
@@ -26,17 +38,25 @@ group=$( dialog --stdout \
         "${LIST[@]}" \
         )
 
-
+##############################
+## Verificando se o usuário apertou ESC ou em Cancel
+##############################
 if [ $? -ne 0 ]; then
 	src/dldap-groups.sh
 	exit
 fi
 
-ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(&(objectClass=posixGroup)(cn=$group))" -w $password > tmp
+####################################
+## Obtendo os dados do grupo selecionado e armazenando em um arquivo temporário
+####################################
+ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "$base" "(&(objectClass=posixGroup)(cn=$group))" -w $password > tmp
 
+
+####################################
+## Separando as informações armazenadas no arquivo temporário
+####################################
 description=$( cat tmp | grep "description:" | cut -d" " -f2-)
 members=$(cat tmp | grep "uniqueMember:" | cut -d":" -f2 | cut -d"," -f1 | cut -d"=" -f2)
-
 strMember=''
 first=true
 for member in $members
@@ -50,14 +70,19 @@ do
 	fi
 done
 
-
+####################################
+## Exibindo os dados exibidos em uma caixa de texto
+####################################
 dialog --backtitle "DLDAP - Consultar Grupo: $group"      \
    --title 'Dados do Grupo'   \
    --msgbox "\nNome (cn): $group\nDescrição: $description\nMembros: $strMember" 10 60
 
-
-
-
-
-src/dldap-groups.sh
+#################################
+## Removendo o arquivo temporário
+#################################
 rm -rf tmp
+
+################################
+## Voltando à tela anterior
+################################
+src/dldap-groups.sh

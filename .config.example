@@ -1,0 +1,3 @@
+base:dc=base,dc=exemplo
+user:cn=user,dc=base,dc=exemplo
+userPassword:123456

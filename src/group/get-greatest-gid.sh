@@ -1,13 +1,25 @@
 #!/bin/bash
 
-password=$(cat .password)
+############################################
+## Script utilizado para gerar novos GIDs  #
+############################################
 
+#####################################
+## Obtendo as informações da base
+#####################################
+base=$(./getconfig.sh base)
+user=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
 
+######################################
+## Buscando todos os GIDs já utilizados
+######################################
+gids=$(ldapsearch -LLL -x -D "$user" -H ldap://ldap1 -b "ou=Grupos,$base" '(objectClass=posixGroup)' gidNumber -w $password | grep gidNumber: | cut -d" " -f2)
 
-gids=$(ldapsearch -LLL -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -b 'ou=Grupos,dc=jose,dc=labredes,dc=info' '(objectClass=posixGroup)' gidNumber -w $password | grep gidNumber: | cut -d" " -f2)
-
+#####################################
+## Gerando o próximo GID disponível, que será maior que 2000 e menor que 10000
+#####################################
 base_gid="2000"
-
 for gid in $gids
 do
 	if [ $gid -le 10000 ]; then
@@ -17,4 +29,7 @@ do
 	fi
 done
 
+#########################
+## Exibindo o GID gerado
+#########################
 echo $base_gid

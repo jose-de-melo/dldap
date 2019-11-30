@@ -1,6 +1,8 @@
 #!/bin/bash
 
-
+################
+## Exibindo o menu de gerenciamento de grupos
+################
 op=$( dialog --cancel-label "Voltar" --backtitle 'DLDAP - Gerenciamento de Usuários' \
         --stdout                 \
         --menu 'Selecione uma opção:'       \
@@ -11,13 +13,18 @@ op=$( dialog --cancel-label "Voltar" --backtitle 'DLDAP - Gerenciamento de Usuá
         4 'Excluir Grupo' \
         0 'Voltar'  )
 
+################
+## Verificando se o usuário apertou ESC ou Voltar
+################
 if [ $? -ne 0 ];
 then
 	./dldap.sh
 	exit
 fi
 
-
+##############
+## Direcionando o usuário de acordo com a opção escolhida
+##############
 case "$op" in
         1) src/group/add.sh ;;
         2) src/group/consult.sh ;;
@@ -25,5 +32,3 @@ case "$op" in
         4) src/group/del.sh ;;
         0) ./dldap.sh ;;
 esac
-
-

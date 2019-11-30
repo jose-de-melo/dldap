@@ -1,5 +1,16 @@
 #!/bin/bash
 
+#####################
+## DLDAP
+#### Desenvolvido por José de Melo
+#####################
+
+
+
+
+###################
+## Exibindo o menu inicial da aplicação
+###################
 resposta=$(
       dialog --cancel-label "Sair" --backtitle "DLDAP" --stdout               \
              --title 'Menu'  \
@@ -12,10 +23,16 @@ resposta=$(
             0 'Sair'                )
 
 	
-
+###################
+## Verificando se o usuário apertou a tecla ESC ou Sair
+###################
 [ $? -ne 0 ] && exit
 
 
+
+##################
+## Chamando a próxima tela de acordo com a opção escolhida no menu
+##################
 case "$resposta" in
 	1) ./src/dldap-users.sh ;;
 	2) ./src/dldap-groups.sh ;;

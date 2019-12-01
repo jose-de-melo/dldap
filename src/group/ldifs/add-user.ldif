@@ -1,0 +1,4 @@
+
+dn: cn=<group>,ou=Grupos,<base>
+<operation>: uniqueMember
+uniqueMember: uid=<uid>,ou=Usuarios,<base>

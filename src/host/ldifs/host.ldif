@@ -1,4 +1,4 @@
-dn: cn=<cn>,ou=Maquinas,dc=jose,dc=labredes,dc=info
+dn: cn=<cn>,ou=Maquinas,<base>
 cn: <cn>
 objectClass: nisNetgroup
 description: <description>

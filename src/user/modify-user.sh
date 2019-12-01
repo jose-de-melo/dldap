@@ -1,13 +1,15 @@
 #!/bin/bash
 
-password=$(cat .password)
+## Obtendo as informações da base
+base=$(./getconfig.sh base)
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
 
+## Obtendo todos os usuários cadastrados na base
+output=$( ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "$base" "(objectClass=posixAccount)" -w $password | grep uid: | cut -d" " -f2 )
 
-output=$( ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(objectClass=posixAccount)" -w $password | grep uid: | cut -d" " -f2 )
-
-
+## Gerando a lista de usuários para o radiolist seguinte
 LIST=()
-
 count=0
 for linha in $(echo $output)
 do	
@@ -21,6 +23,7 @@ do
 	fi
 done
 
+## Exibindo os usuários cadastrados na base
 user=$( dialog --stdout \
         --backtitle "DLDAP - Alterar Usuário" \
         --title "Selecionar Usuário" \
@@ -28,11 +31,13 @@ user=$( dialog --stdout \
         "${LIST[@]}" \
 )
 
+## Verificando se o usuário apertou ESC ou em Cancel
 if [ $? -ne 0 ]; then
 	src/dldap-users.sh
 	exit
 fi
 
+## Exibindo menu com as opções de alteração de um usuário
 resposta=$(
       dialog --stdout               \
 	     --backtitle "DLDAP - Alterar Usuário"	\
@@ -44,11 +49,13 @@ resposta=$(
             3 'Gerenciar Grupos'        \
             0 'Cancelar'                )
 
+## Verificando se o usuário apertou ESC ou em Cancel
 if [ $? -ne 0 ]; then
 	src/dldap-users.sh
 	exit
 fi
 
+## Direcionando o usuário de acordo com a opção escolhida 
 case "$resposta" in
          1) src/user/modify-gecos-user.sh $user ;;
          2) src/user/modify-password-user.sh $user ;;

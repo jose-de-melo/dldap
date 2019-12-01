@@ -1,13 +1,20 @@
 #!/bin/bash
 
-password=$(cat .password)
+## Obtendo as informações da base
+base=$(./getconfig.sh base)
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
+
+## Obtendo o usuário recebido como parâmetro
 user=$1
-filter="uniqueMember=uid=$user,ou=Usuarios,dc=jose,dc=labredes,dc=info"
 
+## Montando o filtro para a pesquisa
+filter="uniqueMember=uid=$user,ou=Usuarios,$base"
 
+## Buscando todos os grupos nos quais o usuário é membro
+groups=$(ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "$base" "(&(objectClass=posixGroup)($filter))" cn -w $password | grep cn: | cut -d" " -f2)
 
-groups=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(&(objectClass=posixGroup)($filter))" cn -w $password | grep cn: | cut -d" " -f2)
-
+## Removendo o usuário de todos os grupos dos quais faz parte
 for group in $groups
 do
 	src/group/add-or-del-user-group.sh delete $group $user

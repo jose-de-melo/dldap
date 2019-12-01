@@ -1,4 +1,4 @@
-dn: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+dn: uid=<uid>,ou=Usuarios,<base>
 changetype: modify
 replace: gecos
 gecos: <gecos>

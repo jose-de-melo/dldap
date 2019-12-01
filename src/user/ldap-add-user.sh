@@ -1,8 +1,14 @@
 #!/bin/bash
 
-password=$(cat .password)
+## Obtendo as informações da base
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
+
+## Obtendo o uid recebido como parâmetro
 uid=$1
 
-ldapadd -x -D 'cn=admin,dc=jose,dc=labredes,dc=info' -H ldap://ldap1 -f src/user/ldifs/$uid.ldif -w $password >> /dev/null
+## Executando a adição
+ldapadd -x -D "$userBase" -H ldap://ldap1 -f src/user/ldifs/$uid.ldif -w $password >> /dev/null
 
+## Gerando o arquivo de log para a operação
 echo "$(date "+%H:%M") - ADD USER $uid" >> logs/$(date "+%d%m%Y")-dldap.log

@@ -1,4 +1,4 @@
-dn: cn=<cn>,ou=Grupos,dc=jose,dc=labredes,dc=info
+dn: cn=<cn>,ou=Grupos,<base>
 cn: <cn>
 objectClass: posixGroup
 objectClass: groupOfUniqueNames

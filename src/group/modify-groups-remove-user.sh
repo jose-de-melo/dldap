@@ -1,13 +1,18 @@
 #!/bin/bash
 
-password=$(cat .password)
+## Obtendo as informações da base
+base=$(./getconfig.sh base)
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
 
+## Obtendo o grupo passado como parâmetro
 group=$1
 
-list=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "ou=Grupos,dc=jose,dc=labredes,dc=info" "(&(objectClass=posixGroup)(cn=$group))" uniqueMember -w $password | grep uniqueMember | cut -d" " -f2 | cut -d"," -f1 | cut -d"=" -f2)
+## Gerando a lista de usuários do grupo 
+list=$(ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "ou=Grupos,$base" "(&(objectClass=posixGroup)(cn=$group))" uniqueMember -w $password | grep uniqueMember | cut -d" " -f2 | cut -d"," -f1 | cut -d"=" -f2)
 
+## Formatando a lista para formato de opções de um radiolist
 LIST=()
-
 first=0
 DESC=''
 for linha in $(echo $list)
@@ -20,6 +25,8 @@ do
 	fi
 done
 
+
+## Verificando se o grupo possui apenas um membro, nesse caso o mesmo não poderá ser removido.
 if [ ${#LIST[@]} -eq 3 ];
 then
         dialog                                            \
@@ -31,8 +38,7 @@ then
         exit
 fi
 
-
-
+## Exibindo o radiolist com os membros do grupo selecionado
 user=$( dialog --stdout \
         --backtitle "DLDAP - Alterar Grupo" \
         --title "Remover Membro : $group" \
@@ -40,18 +46,21 @@ user=$( dialog --stdout \
         "${LIST[@]}" \
         )
 
+## Verificando se o usuário apertou ESC ou cancelou a operação
 if [ $? -ne 0 ]; then
         src/dldap-groups.sh
         exit
 fi
 
+## Executando o script de deleção de usuário 
 src/group/add-or-del-user-group.sh delete $group $user
 
-
+## Informando ao usuário que a operação foi realizada com sucesso
 dialog                                            \
   --backtitle 'DLDAP - Alterar Grupo'                 \
    --title 'Sucesso!'                             \
    --msgbox "\nO usuário $user foi removido do grupo $group !"  \
    8 40
 
+## Voltando a tela de gerência de grupos
 src/dldap-groups.sh

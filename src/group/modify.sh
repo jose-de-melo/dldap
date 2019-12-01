@@ -1,12 +1,15 @@
 #!/bin/bash
 
-password=$(cat .password)
+## Obtendo as informações da base
+base=$(./getconfig.sh base)
+userBase=$(./getconfig.sh user)
+password=$(./getconfig.sh userPassword)
 
-groups=$(ldapsearch -LLL -x -D "cn=admin,dc=jose,dc=labredes,dc=info" -H ldap://ldap1 -b "dc=jose,dc=labredes,dc=info" "(objectClass=posixGroup)" cn -w $password | grep cn: | cut -d" " -f2)
+## Obtendo os grupos cadastrados na base
+groups=$(ldapsearch -LLL -x -D "$userBase" -H ldap://ldap1 -b "$base" "(objectClass=posixGroup)" cn -w $password | grep cn: | cut -d" " -f2)
 
-
+## Gerando a lista com as opções do radiolist a seguir
 LIST=()
-
 first=true
 DESC=''
 for linha in $(echo $groups)
@@ -19,6 +22,7 @@ do
         fi
 done
 
+## Exibindo o radiolist com os grupos cadastrados na base
 group=$( dialog --stdout --cancel-label "Voltar" \
         --backtitle "DLDAP - Alterar Grupo" \
         --title "Alterar Grupo" \
@@ -26,12 +30,13 @@ group=$( dialog --stdout --cancel-label "Voltar" \
         "${LIST[@]}" \
         )
 
-
+## Verificando se o usuário apertou ESC ou em Voltar
 if [ $? -ne 0 ];then
 	src/dldap-groups.sh
 	exit
 fi
 
+## Obtendo a operação a informação do grupo que o usuário deseja alterar
 resposta=$(
       dialog --stdout --cancel-label "Voltar"               \
              --backtitle "DLDAP - Alterar Grupo"      \
@@ -42,11 +47,13 @@ resposta=$(
             2 'Usuários do Grupo'        \
             0 'Cancelar'                )
 
+## Verificando se o usuário apertou ESC ou em Voltar
 if [ $? -ne 0 ]; then
         src/dldap-groups.sh
         exit
 fi
 
+## Direcionando para a tela de acordo com a opção escolhida
 case "$resposta" in
          1) src/group/modify-description.sh $group ;;
          2) src/group/manage-users.sh $group ;;

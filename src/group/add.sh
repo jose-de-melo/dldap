@@ -127,10 +127,10 @@ gid=$(expr $(src/group/get-greatest-gid.sh) + 1)
 #####################
 ## Gerando o arquivo ldif do novo grupo
 #####################
-cat src/group/ldifs/add-group.ldif | sed "s/<cn>/$cn/" | sed "s/<desc>/$desc/" | sed "s/<gid>/$gid/" >> $cn.ldif
+cat src/group/ldifs/add-group.ldif | sed "s/<base>/$base/" | sed "s/<cn>/$cn/" | sed "s/<desc>/$desc/" | sed "s/<gid>/$gid/" >> $cn.ldif
 for user in $users
 do
-	echo "uniqueMember: uid=$user,ou=Usuarios,dc=jose,dc=labredes,dc=info" >> $cn.ldif
+	echo "uniqueMember: uid=$user,ou=Usuarios,$base" >> $cn.ldif
 done
 echo "" >> $cn.ldif
 

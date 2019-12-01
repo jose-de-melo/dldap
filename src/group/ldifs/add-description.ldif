@@ -1,4 +1,4 @@
-dn: cn=<group>,ou=Grupos,dc=jose,dc=labredes,dc=info
+dn: cn=<group>,ou=Grupos,<base>
 changetype: modify
 replace: description
 description: <description>

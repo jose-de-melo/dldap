@@ -1,5 +1,0 @@
-dn: cn=<group>,ou=Grupos,dc=jose,dc=labredes,dc=info
-changetype: modify
-replace: description
-description: <description>
-

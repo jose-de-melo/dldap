@@ -47,7 +47,7 @@ desc=$(src/adjust-text.sh "$desc" noaccent)
 ######################################################
 ## Gerando o arquivo ldif para alteração de descrição do grupo
 ######################################################
-cat src/group/ldifs/add-description.ldif | sed "s/<group>/$group/" | sed "4c\description: $desc" > $group.ldif
+cat src/group/ldifs/add-description.ldif | sed "s/<base>/$base/" |sed "s/<group>/$group/" | sed "4c\description: $desc" > $group.ldif
 
 ######################################################
 ## Executando a modificação atavés do ldapmodify

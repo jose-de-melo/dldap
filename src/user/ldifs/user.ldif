@@ -1,4 +1,4 @@
-dn: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+dn: uid=<uid>,ou=Usuarios,<base>
 uid: <uid>
 objectClass: posixAccount
 objectClass: shadowAccount
@@ -15,10 +15,10 @@ shadowLastChange: <date>
 shadowMax: 99999
 shadowWarning: 7
 
-dn: cn=<cn>,ou=Grupos,dc=jose,dc=labredes,dc=info
+dn: cn=<cn>,ou=Grupos,<base>
 cn: <cn>
 objectClass: posixGroup
 objectClass: groupOfUniqueNames
 gidNumber: <id>
-uniqueMember: uid=<uid>,ou=Usuarios,dc=jose,dc=labredes,dc=info
+uniqueMember: uid=<uid>,ou=Usuarios,<base>
 

@@ -3,6 +3,7 @@
 #########################################################
 ## Obtendo as informações da base LDAP
 #########################################################
+base=$(./getconfig.sh base)
 user=$(./getconfig.sh user)
 password=$(./getconfig.sh userPassword)
 
@@ -27,7 +28,7 @@ uid=$3
 ##########
 ## Montando o arquivo ldif
 ##########
-cat src/group/ldifs/add-user.ldif | sed "s/<operation>/$operation/"  | sed "s/<group>/$group/" | sed "s/<uid>/$uid/" >> $operation-$uid-$group.ldif
+cat src/group/ldifs/add-user.ldif | sed "s/<base>/$base/" | sed "s/<operation>/$operation/"  | sed "s/<group>/$group/" | sed "s/<uid>/$uid/" >> $operation-$uid-$group.ldif
 
 
 #############

@@ -1,4 +1,4 @@
-dn: cn=<host>,ou=Maquinas,dc=jose,dc=labredes,dc=info
+dn: cn=<host>,ou=Maquinas,<base>
 changetype: modify
 replace: <attr>
 <attr>: <value>
